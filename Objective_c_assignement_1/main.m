@@ -43,14 +43,19 @@
 }
 
 - (void)sentenceCanadianize:(NSString *)originalStr{
-    NSString *result = [originalStr stringByAppendingString:@", eh?"];
+    NSString *str = [originalStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSString *result = [str stringByAppendingString:@", eh?"];
     NSLog(@"%@", result);
 }
 
 - (void)sentenceRespond:(NSString *)originalStr{
-    if ([[originalStr substringFromIndex:[originalStr length] - 1] isEqualToString:@"?"]) {
+    // I need to cut off the new line at the end of the string
+    NSString *str = [originalStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    if ([str hasSuffix:@"?"]) {
+//    if ([[originalStr substringFromIndex:[originalStr length] - 1] isEqualToString:@"?"]) {
          NSLog(@"I don't know");
-    } else if ([[originalStr substringFromIndex:[originalStr length] - 1] isEqualToString:@"!"]) {
+//    } else if ([[originalStr substringFromIndex:[originalStr length] - 1] isEqualToString:@"!"]) {
+    } else if ([str hasSuffix:@"!"]) {
          NSLog(@"Whoa, calm down!");
     }
 }
@@ -61,7 +66,8 @@
 }
 
 - (void)sentenceCount:(NSString *)originalStr{
-    NSLog(@"Length of this string is: %zd", [originalStr length]);
+    NSString *str = [originalStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSLog(@"Length of this string is: %zd", [str length]);
 }
 
 @end
